@@ -23,6 +23,8 @@ def lng_(sentence):
 def current_time():
     time = datetime.time().hour
     val = None
+    if 8 > time >= 0:
+        val = lng_("All Nighter")
     if 12 > time >= 8:
         val = lng_("Good morning")
     if 16 > time >= 12:
