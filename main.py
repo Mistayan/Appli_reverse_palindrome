@@ -10,12 +10,9 @@ lng_fra = {
     "Input something": "Entrez quelque chose",
     "Well said!": "Bien dit!",
     "Nothing was provided": "Rien n'a été fourni.",
-
-
 }
 
 lang, formatting = locale.getlocale()
-print(lang)
 
 
 def lng_(sentence):
@@ -30,7 +27,8 @@ def current_time():
         val = lng_("Good morning")
     if 16 > time >= 12:
         val = lng_("Good evening")
-
+    if 24 > time >= 16:
+        val = lng_("Goodbye")
     return val
 
 
