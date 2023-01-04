@@ -14,10 +14,10 @@ class TestOHCE(unittest.TestCase):
 
         # Alors celle-ci est renvoyée en miroir
         val = ohce.traiter(_in)
-        self.assertEqual("Bonjour otot", val)
+        self.assertEqual(Expressions.bonjour + " otot " + Expressions.au_revoir, val)
 
     def test_palindrome(self):
-        """ Quand on saisit un palindrome, alors, on renvoit le palindrome, ET "Bien dit!" """
+        """ Quand on saisit un palindrome, alors, on renvoie le palindrome, ET "Bien dit!" """
         # Etant donné l'OHCE
         ohce = OHCE()
 
@@ -25,14 +25,24 @@ class TestOHCE(unittest.TestCase):
         _in = "toot"
         # Alors celle-ci est renvoyée en miroir
         val = ohce.traiter(_in)
-        self.assertEqual("Bonjour " + "toot" + " Bien dit!", val)
+        self.assertEqual(Expressions.bonjour + " " + "toot" + " " + Expressions.bien_dit +
+                         " " + Expressions.au_revoir, ohce.traiter(_in))
 
     def test_radar(self):
         # THEORY
         """ Test que OHCE renvoi radar """
         ohce = OHCE()
 
-        _in ="radar"
-        self.assertEqual("Bonjour " + "radar", ohce.traiter(_in))
-        _in ="Radar"
-        self.assertEqual("Bonjour " + "radaR", ohce.traiter(_in))
+        _in = "radar"
+        self.assertEqual(Expressions.bonjour + " " + "radar" + " " + Expressions.bien_dit
+                         + " " + Expressions.au_revoir, ohce.traiter(_in))
+        _in = "Radar"
+        self.assertEqual(Expressions.bonjour + " " + "radaR" + " " + Expressions.bien_dit
+                         + " " + Expressions.au_revoir, ohce.traiter(_in))
+
+    def test_au_revoir(self):
+        """ Test l'existence du message d'au revoir """
+        ohce = OHCE()
+
+        _in = "tEstS"
+        self.assertEqual(Expressions.bonjour + " " + "StsEt" + " " + Expressions.au_revoir, ohce.traiter(_in))
