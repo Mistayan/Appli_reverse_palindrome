@@ -46,3 +46,9 @@ class TestOHCE(unittest.TestCase):
 
         _in = "tEstS"
         self.assertEqual(Expressions.bonjour + " " + "StsEt" + " " + Expressions.au_revoir, ohce.traiter(_in))
+
+    def test_invalid_in(self):
+        ohce = OHCE()
+
+        _in = 12
+        self.assertRaises(ValueError, ohce.traiter, _in)
