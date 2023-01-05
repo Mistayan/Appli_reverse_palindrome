@@ -1,18 +1,16 @@
-from src.messages.Expressions import Expressions
+from src.messages.LangInterface import LangInterface as Lng_
 
 
 class OHCE:
 
-    def goodbye(self):
-        return Expressions.au_revoir
-
-    def traiter(self, string: str):
+    @staticmethod
+    def traiter(string: str):
         if not isinstance(string, str):
-            raise ValueError("Cannot reverse this")
+            raise ValueError(Lng_.msgs.impossible)
         _reversed = string[::-1]
         if string.lower() == "radar":
             string = _reversed
-        return "Bonjour " + (
-            string + " Bien dit!" if _reversed == string else _reversed)\
-            + " " + self.goodbye()
+        return Lng_.msgs.bonjour + " " + (
+            string + " " + Lng_.msgs.bien_dit if _reversed == string else _reversed) \
+            + " " + Lng_.msgs.au_revoir
         # raise NotImplementedError
