@@ -15,10 +15,10 @@ class LangSelector:
 
     def __init__(self, lang=None):
         """
-        :param lang: lang doit être
+        :param lang: isinstance(LangInterface, lang)
         """
         if lang:
-            self.msgs = lang() or lang
+            self.msgs = lang() or lang  # Instantiate if it has not been passed instantiated
         else:
             lang, formatting = locale.getlocale()
             self.__lang = lang
@@ -27,7 +27,7 @@ class LangSelector:
                     self.msgs = English()
                 case "English_Great Britain":
                     self.msgs = English()
-                case _:
+                case _:  # Défaut
                     self.msgs = Francais()
 
     def __getattr__(self, item):
