@@ -1,4 +1,8 @@
-pip
-wheel
-pytest
+pip>=22.3.1
+wheel>=0.38.4
 
+# Frameworks de tests relativement reconnus
+# unittest is builtin
+pytest~=7.2.0
+hypothesis~=6.61.0
+parameterized==0.8.1
