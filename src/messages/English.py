@@ -1,4 +1,7 @@
-class English:
+from messages.LangInterface import LangInterface
+
+
+class English(LangInterface):
     bonjour = "Hello"
     bonsoir = "Good evening"
     bienvenu = "Welcome"
