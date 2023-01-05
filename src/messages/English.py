@@ -8,6 +8,6 @@ class English(LangInterface):
     au_revoir = "Goodbye"
     bonne_soiree = "Good night"
     bien_dit = "Well said!"
-    insert = "Please insert a word"
+    OHCE_INPUT = "Please insert a word"
     rien_fourni = "Nothing has been provided"
-    impossible = "Cannot reverse this"
+    impossible_reverse = "Cannot reverse this"
