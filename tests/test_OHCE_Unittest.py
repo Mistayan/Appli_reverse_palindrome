@@ -1,7 +1,7 @@
 import unittest
 
+from src.messages.LangInterface import LangInterface as Expressions
 from src.models.OHCE import OHCE
-from src.messages.Expressions import Expressions
 
 
 class TestOHCE(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestOHCE(unittest.TestCase):
 
         # Alors celle-ci est renvoyée en miroir
         val = ohce.traiter(_in)
-        self.assertEqual(Expressions.bonjour + " otot " + Expressions.au_revoir, val)
+        self.assertEqual(Expressions.msgs.bonjour + " otot " + Expressions.msgs.au_revoir, val)
 
     def test_palindrome(self):
         """ Quand on saisit un palindrome, alors, on renvoie le palindrome, ET "Bien dit!" """
@@ -25,8 +25,8 @@ class TestOHCE(unittest.TestCase):
         _in = "toot"
         # Alors celle-ci est renvoyée en miroir
         val = ohce.traiter(_in)
-        self.assertEqual(Expressions.bonjour + " " + "toot" + " " + Expressions.bien_dit +
-                         " " + Expressions.au_revoir, ohce.traiter(_in))
+        self.assertEqual(Expressions.msgs.bonjour + " " + "toot" + " " + Expressions.msgs.bien_dit +
+                         " " + Expressions.msgs.au_revoir, ohce.traiter(_in))
 
     def test_radar(self):
         # THEORY
@@ -34,18 +34,18 @@ class TestOHCE(unittest.TestCase):
         ohce = OHCE()
 
         _in = "radar"
-        self.assertEqual(Expressions.bonjour + " " + "radar" + " " + Expressions.bien_dit
-                         + " " + Expressions.au_revoir, ohce.traiter(_in))
+        self.assertEqual(Expressions.msgs.bonjour + " " + "radar" + " " + Expressions.msgs.bien_dit
+                         + " " + Expressions.msgs.au_revoir, ohce.traiter(_in))
         _in = "Radar"
-        self.assertEqual(Expressions.bonjour + " " + "radaR" + " " + Expressions.bien_dit
-                         + " " + Expressions.au_revoir, ohce.traiter(_in))
+        self.assertEqual(Expressions.msgs.bonjour + " " + "radaR" + " " + Expressions.msgs.bien_dit
+                         + " " + Expressions.msgs.au_revoir, ohce.traiter(_in))
 
     def test_au_revoir(self):
         """ Test l'existence du message d'au revoir """
         ohce = OHCE()
 
         _in = "tEstS"
-        self.assertEqual(Expressions.bonjour + " " + "StsEt" + " " + Expressions.au_revoir, ohce.traiter(_in))
+        self.assertEqual(Expressions.msgs.bonjour + " " + "StsEt" + " " + Expressions.msgs.au_revoir, ohce.traiter(_in))
 
     def test_invalid_in(self):
         ohce = OHCE()
