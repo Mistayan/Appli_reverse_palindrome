@@ -2,7 +2,6 @@ from messages.LangInterface import LangInterface
 
 
 class English(LangInterface):
-
     # Entry
     bonjour = "Hello"
     bonsoir = "Good evening"

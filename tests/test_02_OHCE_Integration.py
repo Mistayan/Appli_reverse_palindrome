@@ -9,7 +9,7 @@ class OHCEIntegrationTests(unittest.TestCase):
 
     def test_scenarii_palindrome_soir_en(self):
         """
-        Etant donné
+        Scenario de test d'un palindrome, le soir, en English
         """
 
         # ETANT DONNE que nous sommes le soir
@@ -35,7 +35,7 @@ class OHCEIntegrationTests(unittest.TestCase):
 
     def test_scenarii_non_palindrome_matin_fr(self):
         """
-        Etant donné
+        Scenario de test d'un non-palindrome, le matin, en Francais
         """
 
         # ETANT DONNE que nous sommes le soir

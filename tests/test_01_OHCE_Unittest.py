@@ -11,18 +11,24 @@ class TestOHCE(unittest.TestCase):
 
     def test_01_bonjour(self):
         """ Par défaut, la langue francaise est selectionnee """
+        # ETANT DONNE OHCE en francais, à 8h du matin
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = LangSelector(Francais)
+        # ALORS on dit bonjour
         self.assertEqual(lang.bonjour, ohce.bonjour)
         lang = LangSelector(English)
+        # ET PAS Hello
         self.assertNotEqual(lang.bonjour, ohce.bonjour)
 
     def test_02_au_revoir(self):
         """ Par défaut, la langue anglaise est sélectionné """
+        # ETANT DONNE OHCE en francais, à 8h du matin
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = LangSelector(Francais)
+        # ALORS on dit Bonne journée
         self.assertEqual(ohce.au_revoir, lang.bonne_journee)
         lang = LangSelector(English)
+        # ET PAS Have a nice day
         self.assertNotEqual(ohce.au_revoir, lang.bonne_journee)
 
     def test_02_palindrome(self):
@@ -94,6 +100,7 @@ class TestOHCE(unittest.TestCase):
         [23, Francais.bonsoir],
     ])
     def test_08_bonjour_multiple_times_fr(self, _time, _expected):
+        """ S'assure qu'en Francais, en fonction de l'heure, les phrases d'au revoir changent"""
         print("\ntest : ", _time, _expected)
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(_time).build()
         print(ohce._time, ohce.bonjour, _expected)
@@ -110,6 +117,7 @@ class TestOHCE(unittest.TestCase):
         [23, English.bonsoir],
     ])
     def test_09_bonjour_multiple_times_en(self, _time, _expected):
+        """ S'assure qu'en English, en fonction de l'heure, les phrases d'au revoir changent"""
         print("\ntest : ", _time, _expected)
         ohce = OHCEBuilder().prends_comme_langue(English).a_heure_donnee(_time).build()
         print(ohce._time, ohce.bonjour, _expected)
