@@ -61,6 +61,6 @@ class OHCE:
         _reversed = self.string_palindrome(string)
         if string.lower() == "radar":
             string = string[::-1]
-        bien_dit = self._lang.bien_dit + ' ' if _reversed == string else ''
-        return f"{self.bonjour} {_reversed} {bien_dit}{self.au_revoir}"
+        bien_dit = self._lang.bien_dit + '\n' if _reversed == string else ''
+        return f"{self.bonjour}\n{_reversed}\n{bien_dit}{self.au_revoir}"
         # raise NotImplementedError

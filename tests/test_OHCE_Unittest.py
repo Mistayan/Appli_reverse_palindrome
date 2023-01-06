@@ -26,7 +26,7 @@ class TestOHCE(unittest.TestCase):
         self.assertNotEqual(ohce.au_revoir, lang.bonne_journee)
 
     def test_02_palindrome(self):
-        """ Quand on saisit un palindrome, alors, on renvoie le palindrome, ET "Bien dit!" """
+        """ Quand on saisit un palindrome, alors, on renvoie le palindrome, ET "Bien dit!"  """
         # Etant donné l'OHCE
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = ohce._lang
@@ -36,8 +36,8 @@ class TestOHCE(unittest.TestCase):
         val = ohce.traiter(_in)
 
         # Alors celle-ci est renvoyée en miroir
-        self.assertEqual(lang.bonjour + " " + "toot" + " " + lang.bien_dit +
-                         " " + lang.bonne_journee, val)
+        self.assertEqual(lang.bonjour + "\n" + "toot" + "\n" + lang.bien_dit +
+                         "\n" + lang.bonne_journee, val)
 
     def test_03_radar(self):
         # THEORY
@@ -46,18 +46,18 @@ class TestOHCE(unittest.TestCase):
         lang = ohce._lang
 
         _in = "radar"
-        self.assertEqual(lang.bonjour + " " + "radar" + " " + lang.bien_dit
-                         + " " + lang.bonne_journee, ohce.traiter(_in))
+        self.assertEqual(lang.bonjour + "\n" + "radar" + "\n" + lang.bien_dit
+                         + "\n" + lang.bonne_journee, ohce.traiter(_in))
         _in = "Radar"
-        self.assertEqual(lang.bonjour + " " + "radaR" + " " + lang.bien_dit
-                         + " " + lang.bonne_journee, ohce.traiter(_in))
+        self.assertEqual(lang.bonjour + "\n" + "radaR" + "\n" + lang.bien_dit
+                         + "\n" + lang.bonne_journee, ohce.traiter(_in))
 
     def test_04_chaine_complete(self):  # T.A.F
         """ Test l'existence du message d'au revoir """
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = ohce._lang
         _in = "tEstS"
-        self.assertEqual(lang.bonjour + " " + "StsEt" + " " + lang.bonne_journee, ohce.traiter(_in))
+        self.assertEqual(lang.bonjour + "\n" + "StsEt" + "\n" + lang.bonne_journee, ohce.traiter(_in))
 
     def test_05_invalid_in(self):
         """ Test des entrés invalide """
@@ -71,16 +71,16 @@ class TestOHCE(unittest.TestCase):
     def test_06_multilingual_english(self, lang=English):
         """ S'assure que si OHCE prends <English> en langue, il écrira en <English>"""
         ohce = OHCEBuilder().prends_comme_langue(lang).a_heure_donnee(8).build()
-        self.assertEqual(lang.bonjour + " " + "YEH!" + " " + lang.bonne_journee, ohce.traiter("!HEY"))
-        self.assertEqual(lang.bonjour + " " + "YEY" + " " + lang.bien_dit + " " + lang.bonne_journee,
+        self.assertEqual(lang.bonjour + "\n" + "YEH!" + "\n" + lang.bonne_journee, ohce.traiter("!HEY"))
+        self.assertEqual(lang.bonjour + "\n" + "YEY" + "\n" + lang.bien_dit + "\n" + lang.bonne_journee,
                          ohce.traiter("YEY"))
 
     def test_07_multilingual_french(self, lang=Francais):
         """ S'assure que si OHCE prends <Francais> en langue, il écrira en <Francais>"""
         ohce = OHCEBuilder().prends_comme_langue(lang).a_heure_donnee(8).build()
 
-        self.assertEqual(lang.bonjour + " " + "YEH!" + " " + lang.bonne_journee, ohce.traiter("!HEY"))
-        self.assertEqual(lang.bonjour + " " + "YEY" + " " + lang.bien_dit + " " + lang.bonne_journee,
+        self.assertEqual(lang.bonjour + "\n" + "YEH!" + "\n" + lang.bonne_journee, ohce.traiter("!HEY"))
+        self.assertEqual(lang.bonjour + "\n" + "YEY" + "\n" + lang.bien_dit + "\n" + lang.bonne_journee,
                          ohce.traiter("YEY"))
 
     @parameterized.expand([

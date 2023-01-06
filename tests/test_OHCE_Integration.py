@@ -25,13 +25,13 @@ class OHCEIntegrationTests(unittest.TestCase):
         self.assertRegex(resultat, r"^{}".format(lang.bonsoir), "OHCE doit dire bonjour")
 
         # PUIS son palindrome est imprimé
-        self.assertRegex(resultat, r"^{} {}".format(lang.bonsoir, "YEY"))
+        self.assertRegex(resultat, r"^{}\n{}".format(lang.bonsoir, "YEY"))
 
         # PUIS il est félicité
-        self.assertRegex(resultat, r"{} {}".format("YEY", lang.bien_dit))
+        self.assertRegex(resultat, r"{}\n{}".format("YEY", lang.bien_dit))
 
         # PUIS on lui dit bonne nuit
-        self.assertRegex(resultat, r"{} {}".format(lang.bien_dit, lang.bonne_nuit))
+        self.assertRegex(resultat, r"{}\n{}".format(lang.bien_dit, lang.bonne_nuit))
 
     def test_scenarii_non_palindrome_matin_fr(self):
         """
@@ -51,7 +51,7 @@ class OHCEIntegrationTests(unittest.TestCase):
         self.assertRegex(resultat, r"^{}".format(lang.bonjour), "OHCE doit dire bonjour")
 
         # PUIS son palindrome est imprimé
-        self.assertRegex(resultat, r"^{} {}".format(lang.bonjour, "YEH"))
+        self.assertRegex(resultat, r"^{}\n{}".format(lang.bonjour, "YEH"))
 
         # PUIS on lui souhaite une bonne journée
-        self.assertRegex(resultat, r"{} {}".format("YEH", lang.bonne_journee))
+        self.assertRegex(resultat, r"{}\n{}".format("YEH", lang.bonne_journee))
