@@ -31,7 +31,7 @@ class Console:
             self.__menu()
 
     def __ohce_(self):
-        _in = input("Entrez un chaine de characters")
+        _in = input("Entrez une chaine de characters")
         print(self.__app.traiter(_in))
 
     def __options(self):
