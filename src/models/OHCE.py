@@ -9,7 +9,6 @@ class OHCE:
     def __init__(self, lang=None, time=None):
         self._lang = LangSelector(lang=lang)
 
-        print(time)
         if time is not None:
             self._time = time
         else:
