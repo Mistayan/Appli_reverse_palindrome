@@ -1,7 +1,9 @@
-from utils.menu_utils import do_choice_menu
+from messages import LangSelector
+from utils.menu_utils import faire_choix_menu
 
 
 class Console:
+    _lang = LangSelector()
 
     def __init__(self, app):
         self.__app = app() or app
@@ -19,7 +21,7 @@ class Console:
         _menu = _menu or self.__main_menu
         for i, (elem, action) in enumerate(_menu.items()):
             print(f"{i + 1} : {elem}")
-        _choice = do_choice_menu(_menu)  # input
+        _choice = faire_choix_menu(_menu)  # input
         _action = _menu.get(_choice)
         if _action:
             return _action()
