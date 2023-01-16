@@ -27,3 +27,4 @@ class LangInterface(ABC):
     OHCE_INPUT: str
     rien_fourni: str
     impossible_reverse: str
+    lang_select: str
