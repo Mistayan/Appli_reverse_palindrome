@@ -1,5 +1,5 @@
-from messages import LangSelector
-from models.Clock import Clock
+from src.messages import LangSelector
+from src.models.Clock import Clock
 
 
 class OHCE:
@@ -63,3 +63,6 @@ class OHCE:
         bien_dit = self._lang.bien_dit + '\n' if _reversed == string else ''
         return f"{self.bonjour}\n{_reversed}\n{bien_dit}{self.au_revoir}"
         # raise NotImplementedError
+
+    def get_lang(self):
+        return self._lang
