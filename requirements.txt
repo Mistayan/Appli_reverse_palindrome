@@ -7,3 +7,5 @@ pytest~=7.2.0
 hypothesis==6.62.1
 parameterized==0.8.1
 mutatest>=3.1.0  # HOMT  => Scholar.Google
+
+attrs~=22.2.0  # usefull if you want to have advanced methodology in python
