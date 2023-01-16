@@ -4,6 +4,7 @@ from src.messages.LangInterface import LangInterface
 class Francais(LangInterface):
     # BONJOUR
     bonjour = "Bonjour"
+    de_bon_matin = "Le monde appartient à ceux qui se lèvent tôt"
     bonsoir = "Bonsoir"
     late_nighter = "Ca code dur !"
 
