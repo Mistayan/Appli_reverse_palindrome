@@ -1,4 +1,4 @@
-from messages.LangInterface import LangInterface
+from src.messages.LangInterface import LangInterface
 
 
 class Francais(LangInterface):
@@ -13,9 +13,14 @@ class Francais(LangInterface):
     bon_apres_midi = "Bon après-midi"
     bonne_journee = "Bonne journée"
     vas_te_coucher = "Vas te coucher"
+    bonne_nuit = "Bonne nuit !"
 
     # OHCE
     bien_dit = "Bien dit!"
     OHCE_INPUT = "Entrez un mot"
     rien_fourni = "Rien n'a été fourni"
     impossible_reverse = "Impossible de permuter cela"
+    lang_select = "Langue choisie : Francais"
+
+    def __str__(self):
+        return "Francais"

@@ -1,4 +1,4 @@
-from messages.LangInterface import LangInterface
+from src.messages.LangInterface import LangInterface
 
 
 class English(LangInterface):
@@ -21,3 +21,7 @@ class English(LangInterface):
     OHCE_INPUT = "Please insert a word"
     rien_fourni = "Nothing has been provided"
     impossible_reverse = "Cannot reverse this"
+    lang_select = "Language selected : English"
+
+    def __str__(self):
+        return "English"
