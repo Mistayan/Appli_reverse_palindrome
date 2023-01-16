@@ -2,6 +2,12 @@
 
 Exercice sur les tests en python
 
+
+#### Pour initialiser l'environnement :
+```shell
+python3 setup.py
+```
+
 #### Pour exécuter TOUS les tests :
 
 ---
