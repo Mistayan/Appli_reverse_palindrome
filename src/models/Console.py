@@ -7,7 +7,7 @@ class Console:
 
     def __init__(self, app):
         self.__app = app() or app
-        self._lang = self.__app.get_lang()  # la langue de la console est directement liée à celle de OHCE
+        self._lang = self.__app.lang  # la langue de la console est directement liée à celle de OHCE
         self._run = False
 
     @property
