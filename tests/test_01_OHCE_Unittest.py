@@ -10,8 +10,8 @@ from utilities.OHCE_Builder import OHCEBuilder
 class TestOHCE(unittest.TestCase):
 
     def test_01_bonjour(self):
-        """ Par défaut, la langue francaise est selectionnee """
-        # ETANT DONNE OHCE
+        """ Le programme dit TOUJOURS bonjour, en fonction de l'heure et de la langue de l'utilisateur"""
+        # ETANT DONNE OHCE en français, le matin
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = LangSelector(Francais)
 
@@ -19,7 +19,7 @@ class TestOHCE(unittest.TestCase):
         self.assertEqual(lang.bonjour, ohce.bonjour)
 
     def test_02_au_revoir(self):
-        """ Par défaut, la langue anglaise est sélectionné """
+        """ Le programme dit TOUJOURS Au revoir, en fonction de l'heure et de la langue de l'utilisateur"""
         # ETANT DONNE OHCE en français
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = LangSelector(Francais)
@@ -39,10 +39,10 @@ class TestOHCE(unittest.TestCase):
 
         # Alors celui-ci est renvoyé, et bien dit est envoyé ensuite
         self.assertTrue(_in in val, "la chaine devrait être renvoyée en miroir")
-        self.assertTrue(_in + lang.bien_dit)
+        self.assertRegex(val, _in + "\n" + lang.bien_dit)
 
     def test_03_radar(self):
-        """ Test que OHCE renvoi radar """
+        """ Test que OHCE renvoi une chaine complète sur radar """
         # Etant donné l'OHCE
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = ohce._lang
@@ -50,12 +50,12 @@ class TestOHCE(unittest.TestCase):
         # QUAND on rentre radar
         _in = "radar"
 
-        # on nous dit bonjour, affiche radar, bien dit, et nous dit au revoir
+        # on nous dit bonjour, affiche radar, bien dit, puis dit au revoir
         self.assertEqual(lang.bonjour + "\n" + "radar" + "\n" + lang.bien_dit
                          + "\n" + lang.bonne_journee, ohce.traiter(_in))
 
     def test_03_1_Radar(self):
-        """ Test que OHCE renvoi radaR """
+        """ Test que OHCE renvoi une chaine complète sur un palindrome non-strict( str.lower() ) """
         # THEORY
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
         lang = ohce._lang
@@ -64,7 +64,7 @@ class TestOHCE(unittest.TestCase):
         self.assertEqual(lang.bonjour + "\n" + "radaR" + "\n" + lang.bien_dit
                          + "\n" + lang.bonne_journee, ohce.traiter(_in))
 
-    def test_04_chaine_complete(self):
+    def test_04_chaine_complete_non_palindrome(self):
         """ Test l'existence du message d'au revoir """
         # ETANT DONNE l'OHCE en langue française, le matin
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
@@ -77,7 +77,7 @@ class TestOHCE(unittest.TestCase):
         self.assertEqual(lang.bonjour + "\n" + "StsEt" + "\n" + lang.bonne_journee, ohce.traiter(_in))
 
     def test_05_invalid_in(self):
-        """ Test des entrés invalide pour s'assurer que OHCE fonctionnera comme attendu """
+        """ Test des entrées invalides pour s'assurer que OHCE fonctionnera comme attendu en cas d'imprévus """
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
 
         self.assertRaises(ValueError, ohce.traiter, 42)
