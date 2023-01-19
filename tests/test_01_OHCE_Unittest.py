@@ -3,7 +3,7 @@ import unittest
 
 from parameterized import parameterized
 
-from messages import Francais, LangSelector, English
+from src.messages import Francais, LangSelector, English
 from utilities.OHCE_Builder import OHCEBuilder
 
 

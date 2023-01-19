@@ -1,8 +1,8 @@
 import unittest
 
-from messages import English, Francais
-from models import OHCE
-from models.Clock import Clock
+from src.messages import English, Francais
+from src.models import OHCE
+from src.models.Clock import Clock
 
 
 class OHCEIntegrationTests(unittest.TestCase):
