@@ -3,10 +3,23 @@ from src.models.Clock import Clock
 
 
 class OHCE:
+    """
+    OHCE est une 'api' simple prenant en considération la langue de l'utilisateur et l'heure pour répondre
+    C'est avant tout une gymnastique d'ajout de modules indépendants (Clock, LangSelector, ...)
+    Ces modules doivent pouvoir être échangés avec des modules ayant des attributs publiques similaires.
+    Cette 'api' est faite pour être utilisé en duo avec une INTERFACE (CLI, Graphique, DB, ...)
+    """
     _lang: LangSelector
     _time: int
 
     def __init__(self, lang=None, time=None):
+        """
+        Instancie la classe avec la langue et/ou l'heure choisie
+        Une heure invalide forcera l'heure du système
+        Une langue Invalide forera le français
+        :param lang: La langue de l'interface
+        :param time:
+        """
         self._lang = LangSelector(lang=lang)
         if isinstance(time, (int, float)) and 0 <= time < 24:
             self._time = time
@@ -15,6 +28,10 @@ class OHCE:
 
     @property
     def bonjour(self):
+        """
+        :return: la phrase de bonjour associée à l'heure et la langue
+        :raises: ValueError
+        """
         _dict = {
             # Avant HEURE, affiche TEXTE
             6: self._lang.late_nighter,
@@ -27,6 +44,10 @@ class OHCE:
 
     @property
     def au_revoir(self):
+        """
+        :return: la phrase d'au revoir associée à l'heure et la langue
+        :raises: ValueError
+        """
         _dict = {
             # Avant HEURE, affiche TEXTE
             6: self._lang.de_bon_matin,
@@ -47,9 +68,17 @@ class OHCE:
 
     @staticmethod
     def miroir(string: str):
+        """ Retourne une chaine de characters en miroir """
         return string[::-1]
 
     def traiter(self, string: str):
+        """
+        Prend une chaine en entrée et l'inverse.
+        Ce miroir est intégré dans une phrase contextuelle,
+        disant bonjour en fonction de la langue de OHCE et de l'heure.
+        :param string: la chaine qui sera inversée
+        :return: une phrase contextuelle contenant la chaine inversée.
+        """
         if not isinstance(string, str):
             raise ValueError(self._lang.impossible_reverse)
         _reversed = self.miroir(string)
@@ -60,4 +89,5 @@ class OHCE:
 
     @property
     def lang(self):
+        """ Retourne la référence du sélecteur de langue, afin de pouvoir la modifier """
         return self._lang
