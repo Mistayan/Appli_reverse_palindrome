@@ -35,7 +35,6 @@ class OHCE:
         _dict = {
             # Avant HEURE, affiche TEXTE
             6: self._lang.late_nighter,
-            12: self._lang.bonjour,
             16: self._lang.bonjour,
             20: self._lang.bon_apres_midi,
             24: self._lang.bonsoir,
