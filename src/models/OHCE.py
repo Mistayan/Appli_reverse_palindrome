@@ -8,8 +8,7 @@ class OHCE:
 
     def __init__(self, lang=None, time=None):
         self._lang = LangSelector(lang=lang)
-
-        if time is not None:
+        if isinstance(time, (int, float)) and 0 <= time < 24:
             self._time = time
         else:
             self._time = Clock().time
