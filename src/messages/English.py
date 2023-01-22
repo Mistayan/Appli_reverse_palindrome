@@ -22,6 +22,22 @@ class English(LangInterface):
     rien_fourni = "Nothing has been provided"
     impossible_reverse = "Cannot reverse this"
     lang_select = "Language selected : English"
+    ohce_in = "Enter  a String"
+    entier_in = "Input a number"
+    str_in = "Input a word"
+    not_str = "not a word"
+    not_int = "not a number"
+    int_invalid = "Invalid number (expected between 1 and {})"
+
+    # MENU
+    go = "Start the program"
+    explorer = "Explore program's public methods"
+    explorer_module = "Choose one of api public methods to explore"
+    options = "Change language"
+    quitter = "Exit"
+    retour = "Back"
+    # TEST
+    test = ""
 
     def __str__(self):
         return "English"

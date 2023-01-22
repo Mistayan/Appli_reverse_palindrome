@@ -1,18 +1,19 @@
 from __future__ import annotations
 
-from messages import Francais
-from models import OHCE
+from src.messages import Francais
+from src.models import OHCE
+from tests.utilities.OHCE_Tub import OHCETub
 
 
 class OHCEBuilder:
-    _lang = Francais
+    _lang = Francais()
     _time: int
 
     def __init__(self):
         pass
 
     def build(self) -> OHCE.__class__:
-        return OHCE(lang=self._lang, time=self._time)
+        return OHCETub(lang=self._lang, time=self._time)
 
     def prends_comme_langue(self, lang) -> OHCEBuilder:
         """
@@ -22,7 +23,7 @@ class OHCEBuilder:
         :return: self, permet d'utiliser des instructions chainées
 
         """
-        self._lang = lang
+        self._lang = lang()
         return self
 
     def a_heure_donnee(self, time: int):

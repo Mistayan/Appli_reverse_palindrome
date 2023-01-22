@@ -3,66 +3,89 @@ from src.models.Clock import Clock
 
 
 class OHCE:
+    """
+    OHCE est une 'api' simple prenant en considération la langue de l'utilisateur et l'heure pour répondre
+    C'est avant tout une gymnastique d'ajout de modules indépendants (Clock, LangSelector, ...)
+    Ces modules doivent pouvoir être échangés avec des modules ayant des attributs publiques similaires.
+    Cette 'api' est faite pour être utilisé en duo avec une INTERFACE (CLI, Graphique, DB, ...)
+    """
     _lang: LangSelector
     _time: int
 
-    def __init__(self, lang=None, time=None):
+    def __init__(self, lang=None):
+        """
+        Instancie la classe avec la langue et/ou l'heure choisie
+        Une heure invalide forcera l'heure du système
+        Une langue Invalide forera le français
+        :param lang: La langue de l'interface
+        """
         self._lang = LangSelector(lang=lang)
-
-        if time is not None:
-            self._time = time
-        else:
-            self._time = Clock().time
+        self.__clock = Clock()
+        self._time = self.__clock.time
 
     @property
     def bonjour(self):
-        if self._time < 6:
-            msg_bonjour = self._lang.late_nighter
-        elif self._time < 12:
-            msg_bonjour = self._lang.bonjour
-        elif self._time < 16:
-            msg_bonjour = self._lang.bonjour
-        elif self._time < 20:
-            msg_bonjour = self._lang.bon_apres_midi
-        elif self._time < 24:
-            msg_bonjour = self._lang.bonsoir
-        else:
-            # if self._time >= 24 or self._time < 0:
-            raise ValueError("Invalid Time")
-        return msg_bonjour
+        """
+        :return: la phrase de bonjour associée à l'heure et la langue
+        :raises: ValueError
+        """
+        _dict = {
+            # Avant HEURE, affiche TEXTE
+            6: self._lang.late_nighter,
+            16: self._lang.bonjour,
+            20: self._lang.bon_apres_midi,
+            24: self._lang.bonsoir,
+        }
+        return self.__message_depend_d_heure(_dict)
 
     @property
     def au_revoir(self):
-        if self._time < 6:
-            msg_au_revoir = self._lang.de_bon_matin
-        elif self._time < 12:
-            msg_au_revoir = self._lang.bonne_journee
-        elif self._time < 16:
-            msg_au_revoir = self._lang.bon_apres_midi
-        elif self._time < 20:
-            msg_au_revoir = self._lang.bonne_soiree
-        elif self._time < 22:
-            msg_au_revoir = self._lang.bonne_nuit
-        elif self._time < 24:
-            msg_au_revoir = self._lang.vas_te_coucher
-        else:
-            # if _time >= 24 or _time < 0:
-            raise ValueError("Invalid Time")
-        return msg_au_revoir
+        """
+        :return: la phrase d'au revoir associée à l'heure et la langue
+        :raises: ValueError
+        """
+        _dict = {
+            # Avant HEURE, affiche TEXTE
+            6: self._lang.de_bon_matin,
+            12: self._lang.bonne_journee,
+            16: self._lang.bon_apres_midi,
+            20: self._lang.bonne_soiree,
+            22: self._lang.bonne_nuit,
+            24: self._lang.vas_te_coucher,
+        }
+        return self.__message_depend_d_heure(_dict)
+
+    def __message_depend_d_heure(self, _dict: dict) -> str:
+        """ En fonction du dictionnaire reçu et de l'heure actuelle, renvoi le message adapté"""
+        if self._time < 0 or self._time > 24:
+            self._time = self.__clock.time
+        for heure, texte in _dict.items():
+            if 0 <= self._time < heure:
+                return texte
+        raise ValueError("Invalid Time")
 
     @staticmethod
-    def string_palindrome(string: str):
+    def miroir(string: str):
+        """ Retourne une chaine de characters en miroir """
         return string[::-1]
 
     def traiter(self, string: str):
+        """
+        Prend une chaine en entrée et l'inverse.
+        Ce miroir est intégré dans une phrase contextuelle,
+        disant bonjour en fonction de la langue de OHCE et de l'heure.
+        :param string: la chaine qui sera inversée
+        :return: une phrase contextuelle contenant la chaine inversée.
+        """
         if not isinstance(string, str):
             raise ValueError(self._lang.impossible_reverse)
-        _reversed = self.string_palindrome(string)
+        _reversed = self.miroir(string)
         if string.lower() == "radar":
             string = string[::-1]
         bien_dit = self._lang.bien_dit + '\n' if _reversed == string else ''
         return f"{self.bonjour}\n{_reversed}\n{bien_dit}{self.au_revoir}"
-        # raise NotImplementedError
 
-    def get_lang(self):
+    @property
+    def lang(self):
+        """ Retourne la référence du sélecteur de langue, afin de pouvoir la modifier """
         return self._lang

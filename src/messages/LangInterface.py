@@ -1,7 +1,7 @@
-from abc import ABC
+from abc import ABC, ABCMeta
 
 
-class LangInterface(ABC):
+class LangInterface(ABC, metaclass=ABCMeta):
     """
     Une interface ne peut pas être instanciée --> ABC
     Elle permet:
@@ -28,3 +28,20 @@ class LangInterface(ABC):
     rien_fourni: str
     impossible_reverse: str
     lang_select: str
+    ohce_in: str
+    entier_in: str
+    str_in: str
+    not_str: str
+    not_int: str
+    int_invalid: str
+
+    # MENU
+    go: str
+    explorer: str
+    explorer_module: str
+    options: str
+    quitter: str
+    retour: str
+
+    # TEST
+    test: str
