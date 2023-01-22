@@ -12,19 +12,16 @@ class OHCE:
     _lang: LangSelector
     _time: int
 
-    def __init__(self, lang=None, time=None):
+    def __init__(self, lang=None):
         """
         Instancie la classe avec la langue et/ou l'heure choisie
         Une heure invalide forcera l'heure du système
         Une langue Invalide forera le français
         :param lang: La langue de l'interface
-        :param time:
         """
         self._lang = LangSelector(lang=lang)
-        if isinstance(time, (int, float)) and 0 <= time < 24:
-            self._time = time
-        else:
-            self._time = Clock().time
+        self.__clock = Clock()
+        self._time = self.__clock.time
 
     @property
     def bonjour(self):
@@ -60,6 +57,8 @@ class OHCE:
 
     def __message_depend_d_heure(self, _dict: dict) -> str:
         """ En fonction du dictionnaire reçu et de l'heure actuelle, renvoi le message adapté"""
+        if self._time < 0 or self._time > 24:
+            self._time = self.__clock.time
         for heure, texte in _dict.items():
             if 0 <= self._time < heure:
                 return texte
