@@ -42,3 +42,6 @@ class LangInterface(ABC, metaclass=ABCMeta):
     options: str
     quitter: str
     retour: str
+
+    # TEST
+    test: str
