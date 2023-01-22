@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from src.messages import Francais
 from src.models import OHCE
+from tests.utilities.OHCE_Tub import OHCETub
 
 
 class OHCEBuilder:
@@ -12,7 +13,7 @@ class OHCEBuilder:
         pass
 
     def build(self) -> OHCE.__class__:
-        return OHCE(lang=self._lang, time=self._time)
+        return OHCETub(lang=self._lang, time=self._time)
 
     def prends_comme_langue(self, lang) -> OHCEBuilder:
         """
