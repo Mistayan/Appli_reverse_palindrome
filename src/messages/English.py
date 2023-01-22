@@ -36,6 +36,8 @@ class English(LangInterface):
     options = "Change language"
     quitter = "Exit"
     retour = "Back"
+    # TEST
+    test = ""
 
     def __str__(self):
         return "English"
