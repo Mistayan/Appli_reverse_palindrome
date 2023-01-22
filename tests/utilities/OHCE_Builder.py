@@ -5,7 +5,7 @@ from src.models import OHCE
 
 
 class OHCEBuilder:
-    _lang = Francais
+    _lang = Francais()
     _time: int
 
     def __init__(self):
@@ -22,7 +22,7 @@ class OHCEBuilder:
         :return: self, permet d'utiliser des instructions chainées
 
         """
-        self._lang = lang
+        self._lang = lang()
         return self
 
     def a_heure_donnee(self, time: int):

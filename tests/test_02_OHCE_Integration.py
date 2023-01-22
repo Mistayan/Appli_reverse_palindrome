@@ -45,7 +45,7 @@ class OHCEIntegrationTests(unittest.TestCase):
         soir = Clock().set_time(9).time
 
         # ET que l'utilisateur parle anglais
-        lang = Francais
+        lang = Francais()
 
         # QUAND il entre un palindrome
         resultat = OHCE(lang=lang, time=soir).traiter("HEY")

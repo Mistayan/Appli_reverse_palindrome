@@ -13,7 +13,7 @@ class TestOHCE(unittest.TestCase):
         """ Le programme dit TOUJOURS bonjour, en fonction de l'heure et de la langue de l'utilisateur"""
         # ETANT DONNE OHCE en français, le matin
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
-        lang = LangSelector(Francais)
+        lang = LangSelector(Francais())
 
         # ALORS on dit bonjour
         self.assertEqual(lang.bonjour, ohce.bonjour)
@@ -22,7 +22,7 @@ class TestOHCE(unittest.TestCase):
         """ Le programme dit TOUJOURS Au revoir, en fonction de l'heure et de la langue de l'utilisateur"""
         # ETANT DONNE OHCE en français
         ohce = OHCEBuilder().prends_comme_langue(Francais).a_heure_donnee(8).build()
-        lang = LangSelector(Francais)
+        lang = LangSelector(Francais())
 
         # ALORS on dit Bonne journée
         self.assertEqual(ohce.au_revoir, lang.bonne_journee)
