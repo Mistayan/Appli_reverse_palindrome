@@ -1,8 +1,8 @@
 import unittest
 
 from src.messages import English, Francais
-from utilities.Clock_Stub import ClockStub
-from utilities.OHCE_Stub import OHCEStub
+from utilities.Clock_Override import ClockOverride
+from utilities.OHCE_Override import OHCEOverride
 
 
 class OHCEIntegrationTests(unittest.TestCase):
@@ -13,13 +13,13 @@ class OHCEIntegrationTests(unittest.TestCase):
         """
 
         # ETANT DONNE que nous sommes le soir
-        soir = ClockStub().set_time(21).time
+        soir = ClockOverride().set_time(21).time
 
         # ET que l'utilisateur parle anglais
         lang = English()
 
         # QUAND il entre un palindrome
-        resultat = OHCEStub(lang=lang, time=soir).traiter("YEY")
+        resultat = OHCEOverride(lang=lang, time=soir).traiter("YEY")
 
         # ALORS il est salué
         self.assertRegex(resultat, r"^{}".format(lang.bonsoir), "OHCE doit dire bonsoir")
@@ -42,13 +42,13 @@ class OHCEIntegrationTests(unittest.TestCase):
         """
 
         # ETANT DONNE que nous sommes le soir
-        soir = ClockStub().set_time(9).time
+        soir = ClockOverride().set_time(9).time
 
         # ET que l'utilisateur parle anglais
         lang = Francais()
 
         # QUAND il entre un non-palindrome
-        resultat = OHCEStub(lang=lang, time=soir).traiter("HEY")
+        resultat = OHCEOverride(lang=lang, time=soir).traiter("HEY")
 
         # ALORS il est salué
         self.assertRegex(resultat, r"^{}\n".format(lang.bonjour), "OHCE doit dire bonjour en premier")

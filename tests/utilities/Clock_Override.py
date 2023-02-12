@@ -1,8 +1,8 @@
 from src.models.Clock import Clock
 
 
-class ClockStub(Clock):
-    """ Interface de test de Clock, afin de pouvoir en changer l'heure (tests uniquement)"""
+class ClockOverride(Clock):
+    """ Interface d'Override de test de Clock, afin de pouvoir en changer l'heure (tests uniquement)"""
 
     def __init__(self):
         super().__init__()
