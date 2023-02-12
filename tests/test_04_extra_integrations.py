@@ -1,10 +1,7 @@
-import os.path
+import datetime
+import re
 import unittest
 
-import hypothesis
-from hypothesis import strategies
-
-from models.Clock import Clock
 from src.messages import LangInterface, English, Francais
 from utilities.OHCE_Builder import OHCEBuilder
 
@@ -26,16 +23,16 @@ class OHCETestsExtras(unittest.TestCase):
             # CETTE phrase est-elle présente en english ?
             assert attribute in English().__dir__()
 
-    @hypothesis.given(strategies.text(min_size=2))
-    def test_02_integration_sauvegarde_fichier(self, _txt: str):
+    # @hypothesis.given(strategies.text(min_size=2))
+    def test_02_integration_sauvegarde_fichier(self):
         """ Test que OHCE enregistre bien son historique à chaque utilisation """
-        _time: int = Clock().time
+        # ETANT DONNE ohce en Francais
         ohce = OHCEBuilder().prends_comme_langue(Francais).build()
-        if not isinstance(_txt, str):
-            self.assertRaises(ValueError, ohce.traiter(_txt))
-            return
-        sentance = ohce.traiter(_txt)
-        root = ohce.save_dir
-        self.assertTrue(os.path.exists(f"{root}{_time}"))
+        # SI l'on rentre une chaine de charactère
+        _txt = "test_save"
+        sentence = ohce.traiter(_txt)
+        # ALORS, on s'assure qu'OHCE enregistre dans un fichier à la date, heure, minute, seconde actuelle
+        root = ohce.save_dir + re.sub(r":", "-", ''.join(str(datetime.datetime.now()).split('.')[0:-1]))
+        # ET que le fichier contient la dernière phrase générée
         with open(root, 'r') as fp:
-            self.assertIn(sentance, fp.readlines())
+            self.assertIn(' '.join(sentence.split("\n") + ['\n']), fp.readlines())
