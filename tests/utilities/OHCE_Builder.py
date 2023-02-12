@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from models.Clock import Clock
 from src.messages import Francais
 from src.models import OHCE
+from src.models.Clock import Clock
 from tests.utilities.OHCE_Stub import OHCEStub
 
 
