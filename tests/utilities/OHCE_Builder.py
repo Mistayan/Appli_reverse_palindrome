@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from src.messages import Francais
 from src.models import OHCE
-from tests.utilities.OHCE_Tub import OHCETub
+from src.models.Clock import Clock
+from tests.utilities.OHCE_Stub import OHCEStub
 
 
 class OHCEBuilder:
@@ -13,7 +14,12 @@ class OHCEBuilder:
         pass
 
     def build(self) -> OHCE.__class__:
-        return OHCETub(lang=self._lang, time=self._time)
+        ret = None
+        if hasattr(self, '_time'):
+            ret = OHCEStub(lang=self._lang, time=self._time)
+        else:
+            ret = OHCEStub(lang=self._lang, time=Clock().time)
+        return ret
 
     def prends_comme_langue(self, lang) -> OHCEBuilder:
         """

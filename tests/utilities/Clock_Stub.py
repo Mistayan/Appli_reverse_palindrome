@@ -1,7 +1,7 @@
 from src.models.Clock import Clock
 
 
-class ClockTub(Clock):
+class ClockStub(Clock):
     """ Interface de test de Clock, afin de pouvoir en changer l'heure (tests uniquement)"""
 
     def __init__(self):
@@ -9,5 +9,9 @@ class ClockTub(Clock):
 
     def set_time(self, time):
         """ Change l'heure de l'horloge à l'heure donnée """
-        self._time = time
+        self.__time = time
         return self
+
+    @property
+    def time(self):
+        return self.__time

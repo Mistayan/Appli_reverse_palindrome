@@ -1,4 +1,5 @@
 import re
+from typing import Type, Dict, Any
 
 from attr import attr
 
@@ -6,17 +7,17 @@ from attr import attr
 class Console:
     """ Interface CLI pour que l'utilisateur puisse interagir avec une api"""
 
-    def __init__(self, app):
+    def __init__(self, app: Type):
         self.__app = app() or app
         self._lang = self.__app.lang  # la langue de la console est directement liée à celle de OHCE
         self._run = False
 
     @property
-    def __main_menu(self) -> dict[str, attr]:
+    def __main_menu(self) -> Dict[str, attr]:
         """
         Menu du menu principal
         Exporté afin de facilement pouvoir le modifier de manière conditionnelle
-        :return:
+        :return: Le menu de base de la console, pour interagir avec l'API
         """
         return {
             self._lang.go: self.__ohce__,
@@ -25,12 +26,12 @@ class Console:
             self._lang.quitter: self.__quitter
         }
 
-    def __menu(self, _menu=None):
+    def __menu(self, _menu=None) -> Any:
         """
         Crée un menu interactif, de longueur variable
         L'utilisateur devra faire un choix dans ce menu pour en sortir
         :param _menu: un dictionnaire de type {"message": objet}; Action peut être une méthode ou un objet.
-        :return: l'action sélectionnée dans le menu
+        :return: la référence de l'action sélectionnée dans le menu (il faudra l'activer si c'est une func)
         """
         # INIT
         _menu = _menu or self.__main_menu
@@ -48,19 +49,19 @@ class Console:
         while self._run:
             self.__menu()()
 
-    def __ohce__(self):
+    def __ohce__(self) -> None:
         """ Utilise OHCE pour répondre à l'utilisateur """
         _in = input(self._lang.ohce_in)
         print(self.__app.traiter(_in))
 
-    def __options(self):
+    def __options(self) -> None:
         """ Affiche les options de configuration de l'OHCE """
         options = self._lang.possibilities
         langue = self.__menu(options)
         self._lang.set_lang(langue())
         print(self._lang.lang_select)
 
-    def __faire_choix_menu(self, menu: dict[str, classmethod]):
+    def __faire_choix_menu(self, menu: Dict[str, classmethod]) -> Any:
         """
         Demande à l'utilisateur son choix en nombre dans le menu donné
         :param menu: un menu sous forme de dictionnaire
@@ -81,7 +82,7 @@ class Console:
         return self.__element_du_menu_choisi(menu, _choix)
 
     @staticmethod
-    def __element_du_menu_choisi(menu, _choix):
+    def __element_du_menu_choisi(menu: Dict, _choix):
         for i, (k, v) in enumerate(menu.items()):
             if i + 1 == _choix:
                 return k

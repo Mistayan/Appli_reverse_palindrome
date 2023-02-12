@@ -1,3 +1,7 @@
+import datetime
+import os
+import re
+
 from src.messages import LangSelector
 from src.models.Clock import Clock
 
@@ -11,6 +15,7 @@ class OHCE:
     """
     _lang: LangSelector
     _time: int
+    __SAVE_DIR__ = "./Saves/"
 
     def __init__(self, lang=None):
         """
@@ -22,6 +27,10 @@ class OHCE:
         self._lang = LangSelector(lang=lang)
         self.__clock = Clock()
         self._time = self.__clock.time
+
+    @property
+    def save_dir(self):
+        return self.__SAVE_DIR__
 
     @property
     def bonjour(self):
@@ -56,8 +65,13 @@ class OHCE:
         return self.__message_depend_d_heure(_dict)
 
     def __message_depend_d_heure(self, _dict: dict) -> str:
-        """ En fonction du dictionnaire reçu et de l'heure actuelle, renvoi le message adapté"""
-        if self._time < 0 or self._time > 24:
+        """
+        En fonction du dictionnaire reçu et de l'heure actuelle, renvoi le message adapté
+        :param _dict: un dict contenant une heure associée à un message
+        :return: le message associé à l'heure actuelle
+        :raises: ValueError
+        """
+        if not 0 <= self._time < 24:
             self._time = self.__clock.time
         for heure, texte in _dict.items():
             if 0 <= self._time < heure:
@@ -83,7 +97,23 @@ class OHCE:
         if string.lower() == "radar":
             string = string[::-1]
         bien_dit = self._lang.bien_dit + '\n' if _reversed == string else ''
-        return f"{self.bonjour}\n{_reversed}\n{bien_dit}{self.au_revoir}"
+        ret = f"{self.bonjour}\n{_reversed}\n{bien_dit}{self.au_revoir}"
+        self.__save_history(ret)
+        return ret
+
+    def __save_history(self, sentence):
+        """
+        Ajoute la phrase dans l'historique de la date actuelle (1 par seconde)
+        :param sentence: text à enregistrer dans self.save_dir/current_time
+        :return: le fichier de l'enregistrement, dans save_dir, au format string
+        """
+        os.mkdir(self.save_dir) if not os.path.exists(self.save_dir) else None
+        # remove milliseconds and replace : to - in order to avoid OSError on Windows
+        _time = re.sub(r":", "-", ''.join(str(datetime.datetime.now()).split('.')[0:-1]))
+        with open(f"{self.save_dir}{_time}", 'a+') as fp:
+            fp.write(re.sub("\n", " ", sentence))
+            fp.write(" \n")
+        return _time
 
     @property
     def lang(self):
