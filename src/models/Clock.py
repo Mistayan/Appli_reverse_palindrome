@@ -2,11 +2,11 @@ from datetime import datetime
 
 
 class Clock:
-    _time: int
+    __time: int
 
     def __init__(self):
-        self._time = datetime.now().hour
+        self.__time = datetime.now().hour
 
     @property
     def time(self):
-        return self._time
+        return self.__time
