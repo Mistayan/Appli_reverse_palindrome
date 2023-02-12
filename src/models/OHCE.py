@@ -11,6 +11,7 @@ class OHCE:
     """
     _lang: LangSelector
     _time: int
+    __SAVE_DIR__ = "/Save/ohce-"
 
     def __init__(self, lang=None):
         """
@@ -22,6 +23,10 @@ class OHCE:
         self._lang = LangSelector(lang=lang)
         self.__clock = Clock()
         self._time = self.__clock.time
+
+    @property
+    def save_dir(self):
+        return self.__SAVE_DIR__
 
     @property
     def bonjour(self):
