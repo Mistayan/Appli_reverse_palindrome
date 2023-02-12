@@ -2,7 +2,8 @@
 
 Exercice réalisé en python (version 3.10+)
 
-L'objectif est d'apprendre à utiliser des Tubs, Builders, Generateurs, ... liés aux méthodologies de tests.
+L'objectif est d'apprendre à utiliser des Stubs, Builders, Generateurs, ... liés aux méthodologies de tests.
+Il est aussi demandé d'utiliser les capacités des Frameworks de test tels que Parameterized, Hypothesis et autres.
 
 # Décomposition de l'exercice:
 
@@ -11,6 +12,27 @@ langue possible pour l'utilisateur.
 Le but de l'interface est de renvoyer le mot en miroir, décoré de 'bonjour', 'au revoir', 'bien dit' dans le cas d'un
 palindrome.
 Chaque mot devra dépendre de la langue et de l'heure actuelle.
+
+#### Pour initialiser l'environnement :
+
+```shell
+py setup.py
+```
+
+#### Pour exécuter TOUS les tests :
+
+---
+
+```shell
+.\venv\Scripts\python -m pytest
+```
+
+#### Pour lancer l'interface de console :
+
+```shell
+.\venv\Scripts\python main.py
+```
+
 ```mermaid
 classDiagram
     Console --* OHCE
@@ -23,15 +45,15 @@ classDiagram
     Clock --> OS
     LangSelector --> OS
     class OHCE{
-        +traiter
         -time
         +lang
+        +traiter(str)
     }
     
     class LangSelector {
     +possibilities
-    +set_lang
     -get_attr
+    +set_lang()
     }
     
     class LangInterface {
@@ -39,7 +61,7 @@ classDiagram
     }
     
     class Clock{
-    +time (en heures)
+    +time [en heures]
     }
     
     class Console{
@@ -77,22 +99,10 @@ sequenceDiagram
     
 ```
 
-#### Pour initialiser l'environnement :
+# Résultats des tests
 
-```shell
-py setup.py
-```
-
-#### Pour exécuter TOUS les tests :
-
----
-
-```shell
-.\venv\Scripts\python -m pytest
-```
-
-================================================================================= test session
-starts =================================================================================
+```txt
+================= test session starts =================================================================================
 platform win32 -- Python 3.11.0, pytest-7.2.1, pluggy-1.0.0
 
 rootdir: C:\*****\pedago-tests\Appli_reverse_palindrome
@@ -109,11 +119,5 @@ tests\test_03_OHCE_Found_Bugs.py ..                                             
 
 tests\test_04_extra_integrations.py .                                                                                                                                            [100%]
 
-================================================================================= 30 passed in
-0.09s ==================================================================================
-
-#### Pour lancer l'interface de console :
-
-```shell
-.\venv\Scripts\python main.py
+================= 30 passed in 0.09s ==================================================================================
 ```

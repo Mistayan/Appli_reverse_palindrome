@@ -56,8 +56,13 @@ class OHCE:
         return self.__message_depend_d_heure(_dict)
 
     def __message_depend_d_heure(self, _dict: dict) -> str:
-        """ En fonction du dictionnaire reçu et de l'heure actuelle, renvoi le message adapté"""
-        if self._time < 0 or self._time > 24:
+        """
+        En fonction du dictionnaire reçu et de l'heure actuelle, renvoi le message adapté
+        :param _dict: un dict contenant une heure associée à un message
+        :return: le message associé à l'heure actuelle
+        :raises: ValueError
+        """
+        if not 0 <= self._time < 24:
             self._time = self.__clock.time
         for heure, texte in _dict.items():
             if 0 <= self._time < heure:
