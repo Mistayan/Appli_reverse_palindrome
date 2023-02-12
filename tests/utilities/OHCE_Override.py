@@ -2,8 +2,8 @@ from src.messages import LangInterface
 from src.models import OHCE
 
 
-class OHCEStub(OHCE):
-    """ Création du STub afin que l'utilisateur ne puisse plus changer l'heure dans l'application.
+class OHCEOverride(OHCE):
+    """ Création d'un Override afin que l'utilisateur ne puisse plus changer l'heure dans l'application.
     Seulement les tests ont cette possibilité, grâce à cette classe"""
 
     def __init__(self, lang: LangInterface, time: int):
