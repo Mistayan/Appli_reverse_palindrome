@@ -47,7 +47,7 @@ class OHCEIntegrationTests(unittest.TestCase):
         # ET que l'utilisateur parle anglais
         lang = Francais()
 
-        # QUAND il entre un palindrome
+        # QUAND il entre un non-palindrome
         resultat = OHCEStub(lang=lang, time=soir).traiter("HEY")
 
         # ALORS il est salué
