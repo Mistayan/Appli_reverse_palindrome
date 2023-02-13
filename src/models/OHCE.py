@@ -1,8 +1,9 @@
 import datetime
 import os
 import re
+from typing import Type
 
-from src.messages import LangSelector
+from src.messages import LangSelector, LangInterface
 from src.models.Clock import Clock
 
 
@@ -14,19 +15,19 @@ class OHCE:
     Cette 'api' est faite pour être utilisé en duo avec une INTERFACE (CLI, Graphique, DB, ...)
     """
     _lang: LangSelector
-    _time: int
+    __clock: Clock
     __SAVE_DIR__ = "./Saves/"
 
-    def __init__(self, lang=None):
+    def __init__(self, lang: LangInterface, clock: Type[Clock]):
         """
         Instancie la classe avec la langue et/ou l'heure choisie
         Une heure invalide forcera l'heure du système
         Une langue Invalide forera le français
         :param lang: La langue de l'interface
+        :param clock: Le type d'horloge à utiliser
         """
         self._lang = LangSelector(lang=lang)
-        self.__clock = Clock()
-        self._time = self.__clock.time
+        self.__clock = clock()
 
     @property
     def save_dir(self):
@@ -71,10 +72,10 @@ class OHCE:
         :return: le message associé à l'heure actuelle
         :raises: ValueError
         """
-        if not 0 <= self._time < 24:
-            self._time = self.__clock.time
+        if not 0 <= self.__clock.time < 24:
+            self.__clock = Clock()
         for heure, texte in _dict.items():
-            if 0 <= self._time < heure:
+            if 0 <= self.__clock.time < heure:
                 return texte
         raise ValueError("Invalid Time")
 

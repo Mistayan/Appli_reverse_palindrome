@@ -1,7 +1,11 @@
 from datetime import datetime
 
 
-class Clock:
+class Iclock:
+    pass
+
+
+class Clock(Iclock):
     __time: int
 
     def __init__(self):
