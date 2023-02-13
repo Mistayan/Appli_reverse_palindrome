@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+from functools import partial
+
 from src.messages import Francais
 from src.models import OHCE
 from src.models.Clock import Clock
-from tests.utilities.OHCE_Override import OHCEOverride
+from tests.utilities.ClockMock import ClockMock
 
 
 class OHCEBuilder:
@@ -16,9 +18,9 @@ class OHCEBuilder:
     def build(self) -> OHCE.__class__:
         ret = None
         if hasattr(self, '_time'):
-            ret = OHCEOverride(lang=self._lang, time=self._time)
+            ret = OHCE(lang=self._lang, clock=partial(ClockMock, self._time))
         else:
-            ret = OHCEOverride(lang=self._lang, time=Clock().time)
+            ret = OHCE(lang=self._lang, clock=Clock)
         return ret
 
     def prends_comme_langue(self, lang) -> OHCEBuilder:

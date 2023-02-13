@@ -1,16 +1,12 @@
-from src.models.Clock import Clock
+from src.models.Clock import Clock, Iclock
 
 
-class ClockOverride(Clock):
+class ClockMock(Iclock):
     """ Interface d'Override de test de Clock, afin de pouvoir en changer l'heure (tests uniquement)"""
 
-    def __init__(self):
+    def __init__(self, time: int):
         super().__init__()
-
-    def set_time(self, time):
-        """ Change l'heure de l'horloge à l'heure donnée """
         self.__time = time
-        return self
 
     @property
     def time(self):

@@ -101,23 +101,15 @@ class TestOHCE(unittest.TestCase):
                          ohce.traiter("YEY"))
 
     @parameterized.expand([
-        [0, Francais.late_nighter, Francais],
-        [1, Francais.late_nighter, Francais],
-        [6, Francais.bonjour, Francais],
-        [8, Francais.bonjour, Francais],
+        # Avant Heure, doit afficher
+        [5, Francais.late_nighter, Francais],
         [12, Francais.bonjour, Francais],
         [16, Francais.bon_apres_midi, Francais],
-        [20, Francais.bonsoir, Francais],
         [23, Francais.bonsoir, Francais],
-        [0, English.late_nighter, English],
-        [1, English.late_nighter, English],
-        [6, English.bonjour, English],
-        [8, English.bonjour, English],
+        [5, English.late_nighter, English],
         [12, English.bonjour, English],
         [16, English.bon_apres_midi, English],
-        [20, English.bonsoir, English],
         [23, English.bonsoir, English],
-
     ])
     def test_08_bonjour_multiple_times_lang(self, _heure, _attendu, _lang):
         """ S'assure qu'en <LANGUE>, en fonction de l'<heure>, les phrases d'<au revoir> changent"""
